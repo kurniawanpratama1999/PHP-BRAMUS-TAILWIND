@@ -1,0 +1,22 @@
+{
+    "name": "kurniawan/ppkd425",
+    "description": "Projek Berkesinambungan untuk dirumah dan di pelatihan agar bisa di manage dengan mudah, menggunakan bramus/routet dan tailwind",
+    "type": "project",
+    "require": {
+        "bramus/router": "^1.6"
+    },
+    
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kurniawan Pratama",
+            "email": "kurama.career@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
