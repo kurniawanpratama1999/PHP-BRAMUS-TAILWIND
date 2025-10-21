@@ -8,34 +8,29 @@ class DashboardController
 {
     public function dashboard()
     {
-        $content = require_once __DIR__ . '/../Views/dashboard/dashboard.php';
-        echo DashboardLayout::render($content);
+        require_once __DIR__ . '/../Views/dashboard/index.php';
     }
 
     // USERS
 
     public function readUsers()
     {
-        $content = require_once __DIR__ . '/../Views/dashboard/users/read-users.php';
-        echo DashboardLayout::render($content);
+        require_once __DIR__ . '/../Views/dashboard/users/read-users.php';
     }
     public function updateUsers()
     {
-        $content = require_once __DIR__ . '/../Views/dashboard/users/read-users.php';
-        echo DashboardLayout::render($content);
+        require_once __DIR__ . '/../Views/dashboard/users/read-users.php';
     }
 
     // PRODUCTS
 
     public function readProducts()
     {
-        $content = require_once __DIR__ . '/../Views/dashboard/products/read-products.php';
-        echo DashboardLayout::render($content);
+        require_once __DIR__ . '/../Views/dashboard/products/read-products.php';
     }
     public function updateProducts()
     {
-        $content = require_once __DIR__ . '/../Views/dashboard/products/read-products.php';
-        echo DashboardLayout::render($content);
+        require_once __DIR__ . '/../Views/dashboard/products/read-products.php';
     }
 
 
@@ -43,13 +38,12 @@ class DashboardController
 
     public function readCategories()
     {
-        $content = require_once __DIR__ . '/../Views/dashboard/categories/read-categories.php';
-        echo DashboardLayout::render($content);
+        require_once __DIR__ . '/../Views/dashboard/categories/read-categories.php';
     }
-    public function updateCategories($cmd)
-    {
-        require_once __DIR__ . '/../Views/dashboard/categories/update-categories.php';
-        $content = updateCategories($cmd);
-        echo DashboardLayout::render($content);
-    }
+
+    // public function updateCategories($cmd)
+    // {
+    //     require_once __DIR__ . '/../Views/dashboard/categories/update-categories.php';
+    //     updateCategories($cmd);
+    // }
 }

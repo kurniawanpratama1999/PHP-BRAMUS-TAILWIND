@@ -1,4 +1,6 @@
-<?php ob_start(); ?>
+<?php
+use App\Layouts\DefaultLayout;
+ob_start(); ?>
 <main class="h-dvh">
     <form method="post">
         <label for="username">
@@ -13,4 +15,4 @@
         <button class="">Login</button>
     </form>
 </main>
-<?php return ob_get_clean(); ?>
+<?php echo DefaultLayout::render(ob_get_clean()); ?>
