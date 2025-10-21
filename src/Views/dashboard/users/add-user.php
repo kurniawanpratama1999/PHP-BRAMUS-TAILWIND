@@ -2,13 +2,23 @@
 
 use App\Helpers\Security;
 use App\Layouts\DashboardLayout;
+use App\Helpers\Flash;
+
 
 function pageAddUser()
 {
+    $flash = Flash::get();
     ob_start(); ?>
     <div class="flex flex-col items-center justify-center h-full">
         <div class="bg-slate-100 rounded-2xl shadow p-4">
             <h2 class="font-bold text-3xl text-center">ADD USER</h2>
+            <?php if ($flash): ?>
+                <div
+                    class="p-2 mb-2 rounded text-center font-semibold
+                            <?= $flash['type'] === 'success' ? 'bg-emerald-200 text-emerald-800' : 'bg-red-200 text-red-800' ?>">
+                    <?= htmlspecialchars($flash['message']) ?>
+                </div>
+            <?php endif; ?>
             <form method="POST" action="/dashboard/users" class="flex flex-col gap-2 w-[350px] p-4">
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Security::generateCsrfToken()) ?>">
                 <label for="username" class="flex flex-col">
@@ -38,6 +48,7 @@ function pageAddUser()
 
                 <button type="submit" class="py-2 bg-emerald-400 mt-3 text-emerald-100 font-bold">Tambah User</button>
             </form>
+
         </div>
     </div>
     <?php echo DashboardLayout::render(ob_get_clean());
