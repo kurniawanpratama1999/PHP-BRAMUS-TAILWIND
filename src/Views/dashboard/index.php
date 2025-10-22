@@ -1,7 +1,7 @@
 <?php
 use App\Layouts\DashboardLayout;
 ob_start(); ?>
-<div class="p-5">
+<div>
     <div class="text-center mb-5">
         <h2 class="font-bold text-5xl">APLIKASI POINT OF SALES</h2>
         <p class="text-2xl font-bold mt-3">Dibuat di PPKDJP oleh Kurniawan Pratama</p>

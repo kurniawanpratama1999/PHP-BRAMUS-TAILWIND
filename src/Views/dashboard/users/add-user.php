@@ -43,13 +43,15 @@ function pageAddUser()
                 </label>
                 <label for="email" class="flex flex-col">
                     <span>Email <span class="text-red-500 text-sm">*</span></span>
-                    <input type="email" name="email" value="" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0"
-                        placeholder="Your Email" autocomplete="off">
+                    <input type="email" name="email" value=""
+                        class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0" placeholder="Your Email"
+                        autocomplete="off">
                 </label>
                 <label for="password" class="flex flex-col">
                     <span>Password <span class="text-red-500 text-sm">*</span></span>
-                    <input type="password" name="password" value="" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0"
-                        placeholder="Your Password" autocomplete="off">
+                    <input type="password" name="password" value=""
+                        class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0" placeholder="Your Password"
+                        autocomplete="off">
                 </label>
 
                 <button type="submit" class="py-2 bg-emerald-400 mt-3 text-emerald-100 font-bold">Tambah User</button>
@@ -72,5 +74,5 @@ function pageAddUser()
             }, 2500);
         }
     </script>
-<?php echo DashboardLayout::render(ob_get_clean());
+    <?php echo DashboardLayout::render(ob_get_clean());
 } ?>
