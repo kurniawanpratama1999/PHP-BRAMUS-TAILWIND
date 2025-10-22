@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Helpers\Flash;
 use App\Helpers\Security;
 use App\Models\User;
@@ -51,7 +53,7 @@ class UsersController
             Flash::set('error', 'Semua field wajib diisi.');
         }
 
-        header("Location:/dashboard/users/add");
+        header("Location:/dashboard/user/add");
         exit;
     }
 
@@ -60,9 +62,29 @@ class UsersController
         session_start();
         Security::checkCsrf();
 
-        // Update data kategori berdasarkan ID
-        // Category::update($id, $_POST['name'] ?? '...');
-        header('Location: /category');
+        $name = $_POST['name'] ?? null;
+        $role_id = $_POST['role_id'] ?? null;
+        $email = $_POST['email'] ?? null;
+        $password = $_POST['password'] ?? null;
+
+        if ($name && $role_id && $email) {
+            $result = User::update($id, [
+                'name' => $name,
+                'role_id' => $role_id,
+                'email' => $email,
+                'password' => $password,
+            ]);
+
+            if ($result) {
+                Flash::set('success', 'User berhasil diubah!');
+            } else {
+                Flash::set('error', 'Gagal update user. Coba lagi.');
+            }
+        } else {
+            Flash::set('error', 'Semua field wajib diisi.');
+        }
+
+        header("Location:/dashboard/user/$id/edit");
         exit;
     }
 
@@ -71,9 +93,14 @@ class UsersController
         session_start();
         Security::checkCsrf();
 
-        // Hapus data kategori berdasarkan ID
-        // Category::delete($id);
-        header('Location: /category');
+        $result = User::destroy($id);
+
+        if ($result) {
+            Flash::set('success', 'User berhasil dihapus!');
+        } else {
+            Flash::set('error', 'Gagal menghapus user. Coba lagi.');
+        }
+        header('Location: /dashboard/users');
         exit;
     }
 }

@@ -23,16 +23,22 @@ $router->get('/dashboard/users', [new UsersController(), "index"]);
 $router->get('/dashboard/user/add', [new UsersController(), "add"]);
 
 // #3 HALAMAN: EDIT -> /dashboard/user/edit
-$router->get('/dashboard/user/{id}/edit', [new UsersController(), "edit"]);
+$router->get('/dashboard/user/{id}/edit', function ($id) {
+    return (new UsersController())->edit($id);
+});
 
 // #4 METHOD: POST -> /dashboard/users/
 $router->post('/dashboard/users', [new UsersController(), "create"]);
 
 // #5 METHOD: PUT -> /dashboard/user/{id}/edit
-$router->put('/dashboard/user/{id}/edit', [new UsersController(), "update"]);
+$router->put('/dashboard/user/{id}/edit', function ($id) {
+    return (new UsersController())->update($id);
+});
 
 // #6 METHOD: DELETE -> /dashboard/user/{id}
-$router->delete('/dashboard/user/{id}', [new UsersController(), "delete"]);
+$router->delete('/dashboard/user/{id}', function ($id) {
+    return (new UsersController())->destroy($id);
+});
 /* === USERS: END === */
 
 $router->run();
