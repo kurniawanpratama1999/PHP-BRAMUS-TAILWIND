@@ -1,5 +1,6 @@
 <?php
 
+use App\Config\Database;
 use App\Helpers\Security;
 use App\Layouts\DashboardLayout;
 use App\Helpers\Flash;
@@ -7,6 +8,11 @@ use App\Helpers\Flash;
 
 function pageAddUser()
 {
+    $connect = Database::connect();
+    $roles_cmd = "SELECT id, name FROM roles WHERE deleted_at IS NULL";
+    $roles_query = mysqli_query($connect, $roles_cmd);
+    $roles_fetch = mysqli_fetch_all($roles_query, MYSQLI_ASSOC);
+
     $flash = Flash::get();
     ob_start(); ?>
     <div class="flex flex-col items-center justify-center h-full">
@@ -29,10 +35,10 @@ function pageAddUser()
                 <label for="role_id" class="flex flex-col">
                     <span>Role User <span class="text-red-500 text-sm">*</span></span>
                     <select name="role_id" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0">
-                        <option value="" selected>-- Pilih Role --</option>
-                        <option value="1">Administrator</option>
-                        <option value="2">Admin</option>
-                        <option value="3">Operator</option>
+                        <option value="" class="italic" selected>-- Pilih Role --</option>
+                        <?php foreach ($roles_fetch as $role): ?>
+                            <option value="<?= $role["id"] ?>" class="capitalize"><?= $role["name"] ?></option>
+                        <?php endforeach ?>
                     </select>
                 </label>
                 <label for="email" class="flex flex-col">

@@ -25,11 +25,11 @@ class DashboardLayout
                 </h1>
                 <a href="" class="font-bold text-end text-2xl">Logout</a>
             </header>
-            <nav class="z-2 absolute h-dvh bg-emerald-300 w-[350px] left-0 top-0 pt-14 shadow-xl">
-                <ul class=" p-5 space-y-5 text-2xl text-white font-semibold">
-                    <li><a href="/dashboard/users" class="hover:text-emerald-100 hover:pl-4 transition-all">User Accounts</a></li>
-                    <li><a href="/dashboard/products" class="hover:text-emerald-100 hover:pl-4 transition-all">Product Collection</a></li>
-                    <li><a href="/dashboard/categories" class="hover:text-emerald-100 hover:pl-4 transition-all">Category of Product</a></li>
+            <nav class="z-2 absolute h-dvh bg-slate-100 w-[350px] left-0 top-0 pt-14 shadow-xl">
+                <ul class=" p-5 space-y-5 text-2xl text-slate-800 font-semibold">
+                    <li><a href="/dashboard/users" class="hover:text-slate-700 hover:pl-4 transition-all hover:text-shadow-xs hover:shadow-black">User Accounts</a></li>
+                    <li><a href="/dashboard/products" class="hover:text-slate-700 hover:pl-4 transition-all hover:text-shadow-xs hover:shadow-black">Product Collection</a></li>
+                    <li><a href="/dashboard/categories" class="hover:text-slate-700 hover:pl-4 transition-all hover:text-shadow-xs hover:shadow-black">Category of Product</a></li>
                 </ul>
             </nav>
             <main class="z-1 absolute w-full h-dvh bg-slate-100 top-0 left-0 pl-[360px] pt-16 overflow-y-auto overflow-x-hidden">

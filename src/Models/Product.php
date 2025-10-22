@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Config\Database;
 
-class User
+class Product
 {
 
 
@@ -12,17 +12,17 @@ class User
     {
         $conn = Database::connect();
 
-        $stmt = mysqli_prepare($conn, "INSERT INTO users (name, role_id, email, password) VALUES (?, ?, ?, ?)");
+        $stmt = mysqli_prepare($conn, "INSERT INTO products (name, category_id, price, description) VALUES (?, ?, ?, ?)");
 
         $success = false;
 
         if ($stmt) {
             $name = $data['name'];
-            $role_id = $data['role_id'];
-            $email = $data['email'];
-            $password = $data['password'];
+            $category_id = $data['category_id'];
+            $price = $data['price'];
+            $description = $data['description'];;
 
-            mysqli_stmt_bind_param($stmt, 'siss', $name, $role_id, $email, $password);
+            mysqli_stmt_bind_param($stmt, 'siss', $name, $category_id, $price, $description);
             mysqli_stmt_execute($stmt);
 
             $success = mysqli_stmt_affected_rows($stmt) > 0;
@@ -40,24 +40,15 @@ class User
 
         $success = false;
 
-        $stmt = mysqli_prepare($conn, "UPDATE users SET name = ?, role_id = ?, email = ? WHERE id = $id");
-
-        if ($data['password']) {
-            $stmt = mysqli_prepare($conn, "UPDATE users SET name = ?, role_id = ?, email = ?, password = ? WHERE id = $id");
-        }
+        $stmt = mysqli_prepare($conn, "UPDATE products SET name = ?, category_id = ?, price = ?, description = ? WHERE id = $id");
 
         if ($stmt) {
             $name = $data['name'];
-            $role_id = $data['role_id'];    
-            $email = $data['email'];
+            $category_id = $data['category_id'];
+            $price = $data['price'];
+            $description = $data['description'];
 
-            if ($data['password']) {
-                $password = $data['password'];
-                mysqli_stmt_bind_param($stmt, 'siss', $name, $role_id, $email, $password);
-            } else {
-                mysqli_stmt_bind_param($stmt, 'sis', $name, $role_id, $email);
-            }
-
+            mysqli_stmt_bind_param($stmt, 'siis', $name, $category_id, $price, $description);
             mysqli_stmt_execute($stmt);
 
 
@@ -74,7 +65,7 @@ class User
         $conn = Database::connect();
         $success = false;
 
-        $stmt = mysqli_prepare($conn, "DELETE FROM users WHERE id = ?");
+        $stmt = mysqli_prepare($conn, "DELETE FROM products WHERE id = ?");
 
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, 'i', $id);
