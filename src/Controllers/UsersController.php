@@ -31,17 +31,17 @@ class UsersController
         session_start();
         Security::checkCsrf();
 
-        $name = $_POST['name'] ?? null;
+        $user_name = $_POST['user_name'] ?? null;
         $role_id = $_POST['role_id'] ?? null;
-        $email = $_POST['email'] ?? null;
-        $password = $_POST['password'] ?? null;
+        $user_email = $_POST['user_email'] ?? null;
+        $user_password = $_POST['user_password'] ?? null;
 
-        if ($name && $role_id && $email && $password) {
+        if ($user_name && $role_id && $user_email && $user_password) {
             $result = User::create([
-                'name' => $name,
+                'user_name' => $user_name,
                 'role_id' => $role_id,
-                'email' => $email,
-                'password' => $password,
+                'user_email' => $user_email,
+                'user_password' => $user_password,
             ]);
 
             if ($result) {
@@ -62,17 +62,17 @@ class UsersController
         session_start();
         Security::checkCsrf();
 
-        $name = $_POST['name'] ?? null;
+        $user_name = $_POST['user_name'] ?? null;
         $role_id = $_POST['role_id'] ?? null;
-        $email = $_POST['email'] ?? null;
-        $password = $_POST['password'] ?? null;
+        $user_email = $_POST['user_email'] ?? null;
+        $user_password = empty($_POST['user_password']) ?? null;
 
-        if ($name && $role_id && $email) {
+        if ($user_name && $role_id && $user_email) {
             $result = User::update($id, [
-                'name' => $name,
+                'user_name' => $user_name,
                 'role_id' => $role_id,
-                'email' => $email,
-                'password' => $password,
+                'user_email' => $user_email,
+                'user_password' => $user_password,
             ]);
 
             if ($result) {

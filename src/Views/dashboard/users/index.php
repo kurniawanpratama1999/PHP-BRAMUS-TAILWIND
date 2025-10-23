@@ -19,7 +19,7 @@ function pageIndex()
     $flash = Flash::get();
 
     ob_start();
-    ?>
+?>
 
     <div>
 
@@ -77,13 +77,17 @@ function pageIndex()
                                 <p class="<?= $bgcl ?> py-1 px-3 rounded-full text-center"><?= $user["role_name"] ?></p>
                             </td>
                             <td class="flex gap-3 items-center justify-center">
-                                <a class="bg-neutral-300 py-2 px-4 rounded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                        <path fill="#888888"
-                                            d="m16.24 3.56l4.95 4.94c.78.79.78 2.05 0 2.84L12 20.53a4.01 4.01 0 0 1-5.66 0L2.81 17c-.78-.79-.78-2.05 0-2.84l10.6-10.6c.79-.78 2.05-.78 2.83 0M4.22 15.58l3.54 3.53c.78.79 2.04.79 2.83 0l3.53-3.53l-4.95-4.95z" />
-                                    </svg>
-                                </a>
-                                <a class="bg-neutral-300 py-2 px-4 rounded">
+                                <form method="POST" action="/dashboard/user/<?= $user['user_id'] ?>">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Security::generateCsrfToken()) ?>">
+                                    <button class="bg-neutral-300 py-2 px-4 rounded">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                            <path fill="#888888"
+                                                d="m16.24 3.56l4.95 4.94c.78.79.78 2.05 0 2.84L12 20.53a4.01 4.01 0 0 1-5.66 0L2.81 17c-.78-.79-.78-2.05 0-2.84l10.6-10.6c.79-.78 2.05-.78 2.83 0M4.22 15.58l3.54 3.53c.78.79 2.04.79 2.83 0l3.53-3.53l-4.95-4.95z" />
+                                        </svg>
+                                    </button>
+                                </form>
+                                <a href="/dashboard/user/<?= $user['user_id'] ?>/edit" class="bg-neutral-300 py-2 px-4 rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                         <path fill="#888888"
                                             d="m15.54 3.5l4.96 4.97l-1.43 1.41l-4.95-4.95zM3.5 19.78l6.5-6.47c-.1-.31-.03-.7.23-.96c.39-.39 1.03-.39 1.42 0c.39.4.39 1.03 0 1.42c-.26.26-.65.33-.96.23l-6.47 6.5l10.61-3.55l3.53-6.36l-4.94-4.95l-6.37 3.53z" />
@@ -106,5 +110,5 @@ function pageIndex()
             }, 2000);
         }
     </script>
-    <?php echo DashboardLayout::render(ob_get_clean());
+<?php echo DashboardLayout::render(ob_get_clean());
 } ?>

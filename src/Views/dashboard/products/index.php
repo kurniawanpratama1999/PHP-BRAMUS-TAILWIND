@@ -8,7 +8,9 @@ use App\Helpers\Security;
 function pageIndex()
 {
     $connec = Database::connect();
-    $products_cmd = "SELECT id, category_id, name, photo, price, description FROM products WHERE deleted_at IS NULL";
+    $products_cmd = "SELECT p.product_id, pc.product_category_name, p.product_category_id, p.product_name, p.product_photo, p.product_price, p.product_description 
+                     FROM products AS p JOIN product_categories AS pc ON p.product_category_id = pc.product_category_id
+                     WHERE p.deleted_at IS NULL";
 
     $products_query = mysqli_query($connec, $products_cmd);
 
@@ -20,12 +22,6 @@ function pageIndex()
 ?>
 
     <div class="p-5">
-        <div class="text-center mb-5">
-            <h2 class="font-bold text-5xl">VIEW ALL PRODUCT</h2>
-        </div>
-        <a href="/dashboard/product/add"
-            class="py-2 px-5 fixed bottom-5 right-5 rounded bg-emerald-300 text-white shadow font-bold">Add
-            Product</a>
         <?php if ($flash): ?>
             <div id="message"
                 class="p-2 mb-2 rounded text-center font-semibold
@@ -33,41 +29,87 @@ function pageIndex()
                 <?= htmlspecialchars($flash['message']) ?>
             </div>
         <?php endif; ?>
-        <table
-            class="border border-slate-400 w-full [&_th]:p-2 [&_th]:border [&_th]:border-slate-400 [&_td]:p-2 [&_td]:border [&_td]:border-slate-400">
-            <tr class="text-left bg-amber-300 font-semibold">
-                <th class="w-[70px]">No</th>
-                <th class="">Name</th>
-                <th class="">Category</th>
-                <th class="">Price</th>
-                <th class="">Desciption</th>
-                <th class="">Photo</th>
-                <th class="w-[100px]">Actions</th>
-            </tr>
-            <?php if (count($products_fetch) < 1): ?>
-                <tr>
-                    <td colspan="7" class="text-center">Masih kosong, silahkan tambah produk</td>
-                </tr>
-            <?php endif ?>
-            <?php foreach ($products_fetch as $key => $product): ?>
-                <tr>
-                    <td><?= $key + 1 ?></td>
-                    <td><?= $product['name'] ?></td>
-                    <td><?= $product['category_id'] ?></td>
-                    <td><?= $product['price'] ?></td>
-                    <td><?= $product['description'] ?></td>
-                    <td><?= $product['photo'] ?></td>
-                    <td class="flex items-center justify-center gap-3 border-none">
-                        <form action="/dashboard/product/<?= $product['id'] ?>" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Security::generateCsrfToken()) ?>">
-                            <button type="submit" class="p-1 rounded bg-red-200 text-white">❌</button>
-                        </form>
-                        <a href="/dashboard/product/<?= $product['id'] ?>/edit" class="p-1 rounded bg-indigo-200 text-white">🖊</a>
-                    </td>
-                </tr>
-            <?php endforeach ?>
-        </table>
+        <div class="w-fit mx-auto">
+
+            <div class="flex items-center justify-between my-5 h-10">
+                <label for="search" class="flex items-center gap-2 p-2 rounded bg-neutral-100 w-fit h-full">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="#888888"
+                                d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5l-1.5 1.5l-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16A6.5 6.5 0 0 1 3 9.5A6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14S14 12 14 9.5S12 5 9.5 5" />
+                        </svg>
+                    </span>
+                    <input type="text" placeholder="Search User" class="placeholder:text-neutral-500 border-0 outline-0">
+                </label>
+                <a href="/dashboard/product/add"
+                    class="flex items-center h-full px-5 rounded bg-emerald-300 text-white shadow font-bold">
+                    ADD PRODUCT
+                </a>
+            </div>
+
+            <div class="bg-neutral-100 rounded shadow max-h-[calc(100dvh-11.5rem)]">
+                <table
+                    class="p-2 text-left">
+                    <tr class="[&_th]:pb-4 [&_th]:pt-2 [&_th]:px-4">
+                        <th class="w-[70px]">No</th>
+                        <th class="">Name</th>
+                        <th class="text-center">Category</th>
+                        <th class="">Desciption</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Photo</th>
+                        <th class="w-[100px] text-center">Actions</th>
+                    </tr>
+                    <?php if (count($products_fetch) < 1): ?>
+                        <tr>
+                            <td colspan="7" class="text-center">Masih kosong, silahkan tambah produk</td>
+                        </tr>
+                    <?php endif ?>
+                    <?php foreach ($products_fetch as $key => $product): ?>
+                        <tr class="group [&_td]:py-2 [&_td]:px-4 hover:bg-neutral-200/70">
+                            <td><?= $key + 1 ?></td>
+                            <td class="uppercase"><?= $product['product_name'] ?></td>
+                            <td>
+                                <?php
+                                if ($product['product_category_id'] == 1) {
+                                    $bgcl = 'bg-blue-100 text-blue-700 shadow shadow-blue-700';
+                                } else if ($product['product_category_id'] == 2) {
+                                    $bgcl = 'bg-red-100 text-red-700 shadow shadow-red-700';
+                                } else {
+                                    $bgcl = 'bg-yellow-100 text-yellow-700 shadow shadow-yellow-700';
+                                } ?>
+                                <p class="<?= $bgcl ?> py-1 px-3 rounded-full text-center capitalize"><?= $product["product_category_name"] ?></p>
+                            </td>
+                            <td><?= $product['product_description'] ?></td>
+                            <td>
+                                <p class="py-1 px-3 rounded-full text-center shadow bg-emerald-200">Rp <?= number_format($product['product_price'], 0, ',', '.') ?></p>
+                            </td>
+                            <td>
+                                <div class="group-hover:hidden w-[100px] text-xs"><?= basename($product['product_photo']) ?></div>
+                                <img class="hidden group-hover:block w-[100px] aspect-square object-cover" src="<?= $product['product_photo'] ?>" />
+                            </td>
+                            <td class="flex items-center group-hover:h-[100px] gap-3">
+                                <form class="block" action="/dashboard/product/<?= $product['product_id'] ?>" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Security::generateCsrfToken()) ?>">
+                                    <button type="submit" class="p-1 rounded bg-neutral-300 text-white">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                            <path fill="#888888"
+                                                d="m16.24 3.56l4.95 4.94c.78.79.78 2.05 0 2.84L12 20.53a4.01 4.01 0 0 1-5.66 0L2.81 17c-.78-.79-.78-2.05 0-2.84l10.6-10.6c.79-.78 2.05-.78 2.83 0M4.22 15.58l3.54 3.53c.78.79 2.04.79 2.83 0l3.53-3.53l-4.95-4.95z" />
+                                        </svg>
+                                    </button>
+                                </form>
+                                <a href="/dashboard/product/<?= $product['product_id'] ?>/edit" class="block p-1 rounded bg-neutral-300 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                        <path fill="#888888"
+                                            d="m15.54 3.5l4.96 4.97l-1.43 1.41l-4.95-4.95zM3.5 19.78l6.5-6.47c-.1-.31-.03-.7.23-.96c.39-.39 1.03-.39 1.42 0c.39.4.39 1.03 0 1.42c-.26.26-.65.33-.96.23l-6.47 6.5l10.61-3.55l3.53-6.36l-4.94-4.95l-6.37 3.53z" />
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                </table>
+            </div>
+        </div>
     </div>
     <script>
         const getMessage = document.querySelector('#message');

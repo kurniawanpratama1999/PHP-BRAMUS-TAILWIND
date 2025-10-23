@@ -18,44 +18,18 @@ class DashboardLayout
             <link rel="stylesheet" href="/src/assets/css/output.css">
         </head>
 
-        <body class="relative">
+        <body>
             <button onclick="goTop()" id="go-top"
                 class="hidden z-50 w-[50px] aspect-square outline rouded-full shadow bg-emerald-300 rounded-full items-center justify-center rotate-180 fixed bottom-5 right-5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
                     <path fill="#000" d="m7 10l5 5l5-5z" />
                 </svg>
             </button>
-            <div id="layout" class="p-5 bg-neutral-200 relative min-h-dvh">
-                <!-- HEADER -->
-                <header class="bg-neutral-100 flex items-center gap-5 px-4 h-16 shadow rounded">
-                    <div>
-                        <h1 class="font-bold text-center text-blue-500">POINT OF SALES 1.0</h1>
-                        <p class="capitalize">
-                            <?= str_replace("-", " ", str_replace('/', ' / ', ltrim($_SERVER['REQUEST_URI'], '/'))) ?>
-                        </p>
-                    </div>
 
-                    <button id="btn-menu" class="flex items-center gap-1 ml-auto">
-                        <span>Menu</span>
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                                <path fill="#888888" d="m7 10l5 5l5-5z" />
-                            </svg>
-                        </span>
-                    </button>
-                    <button id="btn-profile" class="flex items-center gap-1">
-                        <span>Profile</span>
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                                <path fill="#888888" d="m7 10l5 5l5-5z" />
-                            </svg>
-                        </span>
-                    </button>
-                </header>
-
+            <div id="layout" class="bg-neutral-200 relative p-5 h-dvh">
                 <!-- MENU NAV-->
                 <div id="menu"
-                    class="fixed hidden flex-col gap-5 top-0 bottom-0 left-0 bg-neutral-50 shadow p-5 w-[300px] space-y-5">
+                    class="fixed top-5 left-5 bottom-5 flex flex-col gap-5 bg-neutral-50 rounded shadow p-5 w-[300px] col-start-1 row-span-2">
                     <nav>
                         <h2 class="font-semibold italic text-emerald-500 text-lg">Master Data</h2>
                         <ul class="space-y-1 [&_a]:py-1 px-2 mt-2">
@@ -127,30 +101,76 @@ class DashboardLayout
                     </nav>
                 </div>
 
-                <!-- PROFILE NAV -->
-                <div id="profile"
-                    class="hidden flex-col gap-5 absolute right-4 top-24 bg-slate-50 outline p-5 rounded-xl w-[300px]">
-                    <nav>
-                        <h2 class="font-semibold italic text-blue-500 text-lg">Kurniawan Pratama</h2>
-                        <ul class="space-y-1 [&_a]:py-1 px-2">
-                            <li><a href="/dashboard/users" class="text-neutral-700 hover:text-blue-500">User
-                                    Accounts</a></li>
-                            <li><a href="/dashboard/products" class="text-neutral-700 hover:text-blue-500">Product
-                                    Collection</a></li>
-                            <li><a href="/dashboard/categories" class="text-neutral-700 hover:text-blue-500">Category
-                                    of Product</a></li>
-                        </ul>
-                    </nav>
-                </div>
+                <div class="pl-[320px]">
+                    <!-- HEADER -->
+                    <header class="bg-neutral-100 flex items-center gap-5 px-4 h-16 shadow rounded">
+                        <div class="flex flex-col">
+                            <h1 class="font-bold text-left text-blue-500">POINT OF SALES 1.0</h1>
+                            <p class="capitalize flex items-center">
+                                <?php $ar = explode("/", ltrim($_SERVER['REQUEST_URI'], '/')) ?>
+                                <?php foreach ($ar as $k => $v): ?>
+                                    <?php if (count($ar) - 1  > $k) {
+                                        echo "<span>$v</span>";
+                                        echo "
+                                        <span>
+                                            <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'>
+                                                <path fill='currentColor' d='M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6z'/>
+                                            </svg>
+                                        </span>
+                                        ";
+                                    } else {
+                                        echo "<span>$v</span>";
+                                    } ?>
+                                <?php endforeach ?>
+                            </p>
+                        </div>
 
-                <main>
-                    <?= $content ?>
-                </main>
+                        <button id="btn-menu" class="hidden items-center gap-1">
+                            <span>Menu</span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                                    <path fill="#888888" d="m7 10l5 5l5-5z" />
+                                </svg>
+                            </span>
+                        </button>
+
+                        <button id="btn-profile" class="flex items-center gap-1 ml-auto">
+                            <span>Profile</span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                                    <path fill="#888888" d="m7 10l5 5l5-5z" />
+                                </svg>
+                            </span>
+                        </button>
+
+                        <!-- PROFILE NAV -->
+                        <div id="profile"
+                            class="hidden flex-col gap-5 absolute right-4 top-24 bg-slate-50 outline p-5 rounded-xl w-[300px]">
+                            <nav>
+                                <h2 class="font-semibold italic text-blue-500 text-lg">Kurniawan Pratama</h2>
+                                <ul class="space-y-1 [&_a]:py-1 px-2">
+                                    <li><a href="/dashboard/users" class="text-neutral-700 hover:text-blue-500">User
+                                            Accounts</a></li>
+                                    <li><a href="/dashboard/products" class="text-neutral-700 hover:text-blue-500">Product
+                                            Collection</a></li>
+                                    <li><a href="/dashboard/categories" class="text-neutral-700 hover:text-blue-500">Category
+                                            of Product</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </header>
+
+                    <main class="col-start-2 row-start-2 py-5">
+                        <?= $content ?>
+                    </main>
+                </div>
             </div>
         </body>
         <script>
             const goTop = () => {
-                window.scrollTo({ top: 0 })
+                window.scrollTo({
+                    top: 0
+                })
             }
 
             const getGoTop = document.querySelector('#go-top')
@@ -176,12 +196,12 @@ class DashboardLayout
             handleBtnProfile.addEventListener('click', () => {
                 getProfile.classList.toggle("hidden")
                 getProfile.classList.toggle("flex")
-            }) 
+            })
         </script>
 
         </html>
 
-        <?php return ob_get_clean();
+<?php return ob_get_clean();
     }
 }
 ?>

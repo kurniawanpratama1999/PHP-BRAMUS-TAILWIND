@@ -31,19 +31,19 @@ class ProductsController
         session_start();
         Security::checkCsrf();
 
-        $name = $_POST['name'] ?? null;
-        $category_id = $_POST['category_id'] ?? null;
-        $price = $_POST['price'] ?? null;
-        $description = $_POST['description'] ?? null;
+        $product_name = $_POST['product_name'] ?? null;
+        $product_category_id = $_POST['product_category_id'] ?? null;
+        $product_price = $_POST['product_price'] ?? null;
+        $product_description = $_POST['product_description'] ?? null;
+        $product_photo = $_FILES["product_photo"] ?? null;
 
-        echo "$name - $category_id - $price - $description";
-
-        if ($name && $category_id && $price && $description) {
+        if ($product_name && $product_category_id && $product_price && $product_description && $product_photo) {
             $result = Product::create([
-                'name' => $name,
-                'category_id' => $category_id,
-                'price' => $price,
-                'description' => $description,
+                'product_name' => $product_name,
+                'product_category_id' => $product_category_id,
+                'product_price' => $product_price,
+                'product_description' => $product_description,
+                'product_photo' => $product_photo,
             ]);
 
             if ($result) {
@@ -64,17 +64,19 @@ class ProductsController
         session_start();
         Security::checkCsrf();
 
-        $name = $_POST['name'] ?? null;
-        $category_id = $_POST['category_id'] ?? null;
-        $price = $_POST['price'] ?? null;
-        $description = $_POST['description'] ?? null;
+        $product_name = $_POST['product_name'] ?? null;
+        $product_category_id = $_POST['product_category_id'] ?? null;
+        $product_price = $_POST['product_price'] ?? null;
+        $product_description = $_POST['product_description'] ?? null;
+        $product_photo = $_FILES["product_photo"] ?? null;
 
-        if ($name && $category_id && $price && $description) {
+        if ($product_name && $product_category_id && $product_price && $product_description) {
             $result = Product::update($id, [
-                'name' => $name,
-                'category_id' => $category_id,
-                'price' => $price,
-                'description' => $description,
+                'product_name' => $product_name,
+                'product_category_id' => $product_category_id,
+                'product_price' => $product_price,
+                'product_description' => $product_description,
+                'product_photo' => $product_photo,
             ]);
 
             if ($result) {

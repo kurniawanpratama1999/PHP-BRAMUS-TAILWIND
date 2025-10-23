@@ -12,17 +12,17 @@ class User
     {
         $conn = Database::connect();
 
-        $stmt = mysqli_prepare($conn, "INSERT INTO users (name, role_id, email, password) VALUES (?, ?, ?, ?)");
+        $stmt = mysqli_prepare($conn, "INSERT INTO users (user_name, role_id, user_email, user_password) VALUES (?, ?, ?, ?)");
 
         $success = false;
 
         if ($stmt) {
-            $name = $data['name'];
+            $user_name = $data['user_name'];
             $role_id = $data['role_id'];
-            $email = $data['email'];
-            $password = $data['password'];
+            $user_email = $data['user_email'];
+            $user_password = $data['user_password'];
 
-            mysqli_stmt_bind_param($stmt, 'siss', $name, $role_id, $email, $password);
+            mysqli_stmt_bind_param($stmt, 'siss', $user_name, $role_id, $user_email, $user_password);
             mysqli_stmt_execute($stmt);
 
             $success = mysqli_stmt_affected_rows($stmt) > 0;
@@ -40,22 +40,22 @@ class User
 
         $success = false;
 
-        $stmt = mysqli_prepare($conn, "UPDATE users SET name = ?, role_id = ?, email = ? WHERE id = $id");
+        $stmt = mysqli_prepare($conn, "UPDATE users SET user_name = ?, role_id = ?, user_email = ? WHERE user_id = $id");
 
-        if ($data['password']) {
-            $stmt = mysqli_prepare($conn, "UPDATE users SET name = ?, role_id = ?, email = ?, password = ? WHERE id = $id");
+        if ($data['user_password']) {
+            $stmt = mysqli_prepare($conn, "UPDATE users SET user_name = ?, role_id = ?, user_email = ?, user_password = ? WHERE user_id = $id");
         }
 
         if ($stmt) {
-            $name = $data['name'];
+            $user_name = $data['user_name'];
             $role_id = $data['role_id'];    
-            $email = $data['email'];
+            $user_email = $data['user_email'];
 
-            if ($data['password']) {
-                $password = $data['password'];
-                mysqli_stmt_bind_param($stmt, 'siss', $name, $role_id, $email, $password);
+            if ($data['user_password']) {
+                $user_password = $data['user_password'];
+                mysqli_stmt_bind_param($stmt, 'siss', $user_name, $role_id, $user_email, $user_password);
             } else {
-                mysqli_stmt_bind_param($stmt, 'sis', $name, $role_id, $email);
+                mysqli_stmt_bind_param($stmt, 'sis', $user_name, $role_id, $user_email);
             }
 
             mysqli_stmt_execute($stmt);
@@ -74,7 +74,7 @@ class User
         $conn = Database::connect();
         $success = false;
 
-        $stmt = mysqli_prepare($conn, "DELETE FROM users WHERE id = ?");
+        $stmt = mysqli_prepare($conn, "DELETE FROM users WHERE user_id = ?");
 
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, 'i', $id);

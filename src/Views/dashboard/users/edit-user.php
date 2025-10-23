@@ -8,7 +8,7 @@ use App\Layouts\DashboardLayout;
 function pageEditUser($id)
 {
     $connect = Database::connect();
-    $user_cmd = "SELECT * FROM users where id = $id";
+    $user_cmd = "SELECT user_id, user_name, user_email, role_id FROM users where user_id = $id";
     $user_query = mysqli_query($connect, $user_cmd);
     $user = mysqli_fetch_assoc($user_query);
 
@@ -27,11 +27,13 @@ function pageEditUser($id)
             <form method="POST" action="/dashboard/user/<?= $id ?>/edit" class="flex flex-col gap-2 w-[350px] p-4">
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Security::generateCsrfToken()) ?>">
-                <label for=" name" class="flex flex-col">
+
+                <label for="user_name" class="flex flex-col">
                     <span>Name <span class="text-red-500 text-sm">*</span></span>
-                    <input type="text" name="name" value="<?= $user["name"] ?>" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0"
+                    <input type="text" name="user_name" value="<?= $user["user_name"] ?>" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0"
                         placeholder="Your Name" autocomplete="off">
                 </label>
+
                 <label for="role_id" class="flex flex-col">
                     <span>Role User <span class="text-red-500 text-sm">*</span></span>
                     <select name="role_id" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0">
@@ -41,14 +43,16 @@ function pageEditUser($id)
                         <option value="3" <?= $user['role_id'] == 3 ? "selected" : "" ?>>Operator</option>
                     </select>
                 </label>
-                <label for="email" class="flex flex-col">
+
+                <label for=user_email" class="flex flex-col">
                     <span>Email <span class="text-red-500 text-sm">*</span></span>
-                    <input type="email" name="email" value="<?= $user["email"] ?>" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0"
+                    <input type="email" name="user_email" value="<?= $user["user_email"] ?>" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0"
                         placeholder="Your Email" autocomplete="off">
                 </label>
-                <label for="password" class="flex flex-col">
+
+                <label for="user_password" class="flex flex-col">
                     <span>Password <span class="text-red-500 text-sm">blank for no changes</span></span>
-                    <input type="password" name="password" value="" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0"
+                    <input type="password" name="user_password" value="" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0"
                         placeholder="Your Password" autocomplete="off">
                 </label>
 

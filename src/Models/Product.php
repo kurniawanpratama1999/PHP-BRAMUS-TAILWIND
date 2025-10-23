@@ -12,20 +12,35 @@ class Product
     {
         $conn = Database::connect();
 
-        $stmt = mysqli_prepare($conn, "INSERT INTO products (name, category_id, price, description) VALUES (?, ?, ?, ?)");
+        $stmt = mysqli_prepare($conn, "INSERT INTO products (product_name, product_category_id, product_price, product_description, product_photo) VALUES (?, ?, ?, ?, ?)");
 
         $success = false;
 
         if ($stmt) {
-            $name = $data['name'];
-            $category_id = $data['category_id'];
-            $price = $data['price'];
-            $description = $data['description'];;
+            $product_name = $data['product_name'];
+            $product_category_id = $data['product_category_id'];
+            $product_price = $data['product_price'];
+            $product_description = $data['product_description'];
+            $product_photo = $data['product_photo'];
 
-            mysqli_stmt_bind_param($stmt, 'siss', $name, $category_id, $price, $description);
-            mysqli_stmt_execute($stmt);
+            $filesend = "/src/assets/img/" . uniqid() . "-" .  $product_photo['name'];
+            $filepath = $_SERVER["DOCUMENT_ROOT"] . $filesend;
 
-            $success = mysqli_stmt_affected_rows($stmt) > 0;
+            if (move_uploaded_file($product_photo['tmp_name'], $filepath)) {
+                mysqli_stmt_bind_param(
+                    $stmt,
+                    'sisss',
+                    $product_name,
+                    $product_category_id,
+                    $product_price,
+                    $product_description,
+                    $filesend
+                );
+
+                mysqli_stmt_execute($stmt);
+
+                $success = mysqli_stmt_affected_rows($stmt) > 0;
+            }
 
             mysqli_stmt_close($stmt);
         }
@@ -40,19 +55,34 @@ class Product
 
         $success = false;
 
-        $stmt = mysqli_prepare($conn, "UPDATE products SET name = ?, category_id = ?, price = ?, description = ? WHERE id = $id");
+        $stmt = mysqli_prepare($conn, "UPDATE products SET product_name = ?, product_category_id = ?, product_price = ?, product_description = ?, product_photo = ? WHERE product_id = $id");
 
         if ($stmt) {
-            $name = $data['name'];
-            $category_id = $data['category_id'];
-            $price = $data['price'];
-            $description = $data['description'];
+            $product_name = $data['product_name'];
+            $product_category_id = $data['product_category_id'];
+            $product_price = $data['product_price'];
+            $product_description = $data['product_description'];
+            $product_photo = $data['product_photo'];
 
-            mysqli_stmt_bind_param($stmt, 'siis', $name, $category_id, $price, $description);
-            mysqli_stmt_execute($stmt);
+            $filesend = "/src/assets/img/" . uniqid() . "-" .  $product_photo['name'];
+            $filepath = $_SERVER["DOCUMENT_ROOT"] . $filesend;
 
+            if (move_uploaded_file($product_photo['tmp_name'], $filepath)) {
+                mysqli_stmt_bind_param(
+                    $stmt,
+                    'sisss',
+                    $product_name,
+                    $product_category_id,
+                    $product_price,
+                    $product_description,
+                    $filesend
+                );
 
-            $success = mysqli_stmt_affected_rows($stmt) > 0;
+                mysqli_stmt_execute($stmt);
+
+                $success = mysqli_stmt_affected_rows($stmt) > 0;
+            }
+
             mysqli_stmt_close($stmt);
         }
 
@@ -65,7 +95,7 @@ class Product
         $conn = Database::connect();
         $success = false;
 
-        $stmt = mysqli_prepare($conn, "DELETE FROM products WHERE id = ?");
+        $stmt = mysqli_prepare($conn, "DELETE FROM products WHERE product_id = ?");
 
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, 'i', $id);

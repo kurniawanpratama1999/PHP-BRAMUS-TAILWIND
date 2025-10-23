@@ -9,7 +9,7 @@ use App\Helpers\Flash;
 function pageAddUser()
 {
     $connect = Database::connect();
-    $roles_cmd = "SELECT id, name FROM roles WHERE deleted_at IS NULL";
+    $roles_cmd = "SELECT role_id, role_name FROM roles WHERE deleted_at IS NULL";
     $roles_query = mysqli_query($connect, $roles_cmd);
     $roles_fetch = mysqli_fetch_all($roles_query, MYSQLI_ASSOC);
 
@@ -27,9 +27,9 @@ function pageAddUser()
             <?php endif; ?>
             <form method="POST" action="/dashboard/users" class="flex flex-col gap-2 w-[350px] p-4">
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Security::generateCsrfToken()) ?>">
-                <label for="username" class="flex flex-col">
+                <label for="user_name" class="flex flex-col">
                     <span>Name <span class="text-red-500 text-sm">*</span></span>
-                    <input type="text" name="name" value="" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0"
+                    <input type="text" name="user_name" value="" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0"
                         placeholder="Your Name" autocomplete="off">
                 </label>
                 <label for="role_id" class="flex flex-col">
@@ -37,19 +37,19 @@ function pageAddUser()
                     <select name="role_id" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0">
                         <option value="" class="italic" selected>-- Pilih Role --</option>
                         <?php foreach ($roles_fetch as $role): ?>
-                            <option value="<?= $role["id"] ?>" class="capitalize"><?= $role["name"] ?></option>
+                            <option value="<?= $role["role_id"] ?>" class="capitalize"><?= $role["role_name"] ?></option>
                         <?php endforeach ?>
                     </select>
                 </label>
-                <label for="email" class="flex flex-col">
+                <label for="user_email" class="flex flex-col">
                     <span>Email <span class="text-red-500 text-sm">*</span></span>
-                    <input type="email" name="email" value=""
+                    <input type="email" name="user_email" value=""
                         class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0" placeholder="Your Email"
                         autocomplete="off">
                 </label>
-                <label for="password" class="flex flex-col">
+                <label for="user_password" class="flex flex-col">
                     <span>Password <span class="text-red-500 text-sm">*</span></span>
-                    <input type="password" name="password" value=""
+                    <input type="password" name="user_password" value=""
                         class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0" placeholder="Your Password"
                         autocomplete="off">
                 </label>
@@ -74,5 +74,5 @@ function pageAddUser()
             }, 2500);
         }
     </script>
-    <?php echo DashboardLayout::render(ob_get_clean());
+<?php echo DashboardLayout::render(ob_get_clean());
 } ?>
