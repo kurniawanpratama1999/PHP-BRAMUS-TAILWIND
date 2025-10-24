@@ -36,48 +36,28 @@ class DashboardLayout
                             <li>
                                 <a href="/dashboard/users"
                                     class="text-neutral-700 hover:text-emerald-500 flex items-center gap-2">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                                            <path fill="#888888"
-                                                d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
-                                        </svg>
-                                    </span>
+                                    <i class="bi bi-person-fill text-2xl"></i>
                                     <span>User Accounts</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="/dashboard/users"
                                     class="text-neutral-700 hover:text-emerald-500 flex items-center gap-2">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                                            <path fill="#888888"
-                                                d="m21.1 12.5l1.4 1.41l-6.53 6.59L12.5 17l1.4-1.41l2.07 2.08zM10 17l3 3H3v-2c0-2.21 3.58-4 8-4l1.89.11zm1-13a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4" />
-                                        </svg>
-                                    </span>
+                                    <i class="bi bi-person-fill-gear text-2xl"></i>
                                     <span>User Level</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="/dashboard/products"
                                     class="text-neutral-700 hover:text-emerald-500 flex items-center gap-2">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                                            <path fill="#888888"
-                                                d="M2 10.96a.985.985 0 0 1-.37-1.37L3.13 7c.11-.2.28-.34.47-.42l7.83-4.4c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.19.1.35.26.44.46l1.45 2.52c.28.48.11 1.09-.36 1.36l-1 .58v4.96c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-5.54c-.3.17-.68.18-1 0m10-6.81v6.7l5.96-3.35zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-3.22l-5 2.9c-.33.18-.7.17-1 .01v3.69zm-5.15-2.55l6.28-3.63l-.58-1.01l-6.28 3.63z" />
-                                        </svg>
-                                    </span>
+                                    <i class="bi bi-box-seam-fill text-2xl"></i>
                                     <span>Product Lineup</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="/dashboard/categories"
                                     class="text-neutral-700 hover:text-emerald-500 flex items-center gap-2">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                                            <path fill="#888888"
-                                                d="M12 2c-.2 0-.4.1-.6.2L3.5 6.6c-.3.2-.5.5-.5.9v9c0 .4.2.7.5.9l7.9 4.4c.2.1.4.2.6.2s.4-.1.6-.2l.9-.5c-.3-.6-.4-1.3-.5-2v-6.7l6-3.4V13c.7 0 1.4.1 2 .3V7.5c0-.4-.2-.7-.5-.9l-7.9-4.4c-.2-.1-.4-.2-.6-.2m0 2.2l6 3.3l-2 1.1l-5.9-3.4zM8.1 6.3L14 9.8l-2 1.1l-6-3.4zM5 9.2l6 3.4v6.7l-6-3.4zm16.3 6.6l-3.6 3.6l-1.6-1.6L15 19l2.8 3l4.8-4.8z" />
-                                        </svg>
-                                    </span>
+                                    <i class="bi bi-backpack-fill text-2xl"></i>
                                     <span>Product Category</span>
                                 </a>
                             </li>
@@ -88,12 +68,7 @@ class DashboardLayout
                         <ul class="space-y-1 [&_a]:py-1 px-2 mt-2">
                             <li>
                                 <a href="/dashboard/users" class="text-neutral-700 hover:text-blue-500 flex items-center gap-2">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                                            <path fill="#888888"
-                                                d="M17 2H2v15h2V4h13zm4 20l-2.5-1.68L16 22l-2.5-1.68L11 22l-2.5-1.68L6 22V6h15zM10 10v2h7v-2zm5 4h-5v2h5z" />
-                                        </svg>
-                                    </span>
+                                    <i class="bi bi-receipt text-2xl"></i>
                                     <span>Orders History</span>
                                 </a>
                             </li>
@@ -101,7 +76,7 @@ class DashboardLayout
                     </nav>
                 </div>
 
-                <div class="pl-[320px]">
+                <div class="pl-80">
                     <!-- HEADER -->
                     <header class="bg-neutral-100 flex items-center gap-5 px-4 h-16 shadow rounded">
                         <div class="flex flex-col">

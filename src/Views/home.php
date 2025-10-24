@@ -1,11 +1,13 @@
 <?php
+
 use App\Layouts\DefaultLayout;
+
 ob_start();
 ?>
 <main class="h-dvh flex flex-col items-center justify-center gap-y-2 bg-neutral-200">
     <h1 class="text-3xl font-bold text-emerald-500">Point Of Sales 2025</h1>
 
-    <form method="post" class="flex flex-col gap-2 w-[350px] bg-slate-100 rounded-2xl shadow p-4">
+    <form method="post" class="self_form">
         <label for="username" class="flex flex-col">
             <span>Username :</span>
             <input type="text" name="username" class="self_input" placeholder="Your Username" autocomplete="none">

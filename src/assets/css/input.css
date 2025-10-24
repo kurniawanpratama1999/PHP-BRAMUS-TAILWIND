@@ -3,10 +3,22 @@
 
 /* npx @tailwindcss/cli -i ./src/assets/css/input.css -o ./src/assets/css/output.css --watch */
 
+.self_label {
+  @apply flex flex-col;
+}
+
+.self_input-required {
+  @apply text-red-500 text-sm;
+}
+
 .self_input {
-   @apply border border-slate-300 py-2 px-4 bg-slate-100 outline-0;
-};
+  @apply border border-slate-300 py-2 px-4 bg-slate-100 outline-0;
+}
 
 .btn_login {
-    @apply py-2 bg-emerald-400 mt-3 text-emerald-100 font-bold
+  @apply py-2 bg-emerald-400 mt-3 text-emerald-100 font-bold;
+}
+
+.self_form {
+  @apply flex flex-col gap-2 min-w-[350px] p-4 bg-slate-100 rounded-2xl shadow p-4;
 }

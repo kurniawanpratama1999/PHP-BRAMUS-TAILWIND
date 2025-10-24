@@ -44,9 +44,9 @@ function pageEditProduct($id)
                         placeholder="Product Name" autocomplete="off">
                 </label>
 
-                <label for="category_id" class="flex flex-col">
+                <label for="product_category_id" class="flex flex-col">
                     <span>Product Category<span class="text-red-500 text-sm">*</span></span>
-                    <select name="category_id" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0">
+                    <select name="product_category_id" class="border border-slate-300 py-2 px-4 bg-slate-100 outline-0">
                         <option value="">-- Pilih Kategori --</option>
                         <option value="1" <?= $product['product_category_id'] == 1 ? "selected" : "" ?>>Makanan</option>
                         <option value="2" <?= $product['product_category_id'] == 2 ? "selected" : "" ?>>Minuman</option>

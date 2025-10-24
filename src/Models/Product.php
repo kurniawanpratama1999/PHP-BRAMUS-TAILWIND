@@ -55,31 +55,54 @@ class Product
 
         $success = false;
 
-        $stmt = mysqli_prepare($conn, "UPDATE products SET product_name = ?, product_category_id = ?, product_price = ?, product_description = ?, product_photo = ? WHERE product_id = $id");
+        $product_name = $data['product_name'];
+        $product_category_id = $data['product_category_id'];
+        $product_price = $data['product_price'];
+        $product_description = $data['product_description'];
+        $product_photo = $data['product_photo'];
+
+        $stmt = mysqli_prepare($conn, "UPDATE products SET product_name = ?, product_category_id = ?, product_price = ?, product_description = ? WHERE product_id = $id");
+        if ($product_photo) {
+            $stmt = mysqli_prepare($conn, "UPDATE products SET product_name = ?, product_category_id = ?, product_price = ?, product_description = ?, product_photo = ? WHERE product_id = $id");
+        }
 
         if ($stmt) {
-            $product_name = $data['product_name'];
-            $product_category_id = $data['product_category_id'];
-            $product_price = $data['product_price'];
-            $product_description = $data['product_description'];
-            $product_photo = $data['product_photo'];
+            if ($product_photo) {
+                $photo_query = mysqli_query($conn, "SELECT product_photo FROM products WHERE product_id = $id");
+                $photo_result = mysqli_fetch_assoc($photo_query);
 
-            $filesend = "/src/assets/img/" . uniqid() . "-" .  $product_photo['name'];
-            $filepath = $_SERVER["DOCUMENT_ROOT"] . $filesend;
+                $f =__FILE__ . $photo_result['product_photo'];
+                if (file_exists($f)) {
+                    unlink($f);
+                }
 
-            if (move_uploaded_file($product_photo['tmp_name'], $filepath)) {
+                $filesend = "/src/assets/img/" . uniqid() . "-" .  $product_photo['name'];
+                $filepath = $_SERVER["DOCUMENT_ROOT"] . $filesend;
+                if (move_uploaded_file($product_photo['tmp_name'], $filepath)) {
+                    mysqli_stmt_bind_param(
+                        $stmt,
+                        'sisss',
+                        $product_name,
+                        $product_category_id,
+                        $product_price,
+                        $product_description,
+                        $filesend
+                    );
+
+                    mysqli_stmt_execute($stmt);
+                    $success = mysqli_stmt_affected_rows($stmt) > 0;
+                }
+            } else {
                 mysqli_stmt_bind_param(
                     $stmt,
-                    'sisss',
+                    'siss',
                     $product_name,
                     $product_category_id,
                     $product_price,
                     $product_description,
-                    $filesend
                 );
 
                 mysqli_stmt_execute($stmt);
-
                 $success = mysqli_stmt_affected_rows($stmt) > 0;
             }
 

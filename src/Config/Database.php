@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Config;
 
 class Database
@@ -7,7 +8,7 @@ class Database
     {
         $_HOST = "localhost";
         $_USER = "root";
-        $_PASS = "januari";
+        $_PASS = "";
         $_DB = "testing";
 
         $conn = mysqli_connect($_HOST, $_USER, $_PASS, $_DB);

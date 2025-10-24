@@ -68,9 +68,10 @@ class ProductsController
         $product_category_id = $_POST['product_category_id'] ?? null;
         $product_price = $_POST['product_price'] ?? null;
         $product_description = $_POST['product_description'] ?? null;
-        $product_photo = $_FILES["product_photo"] ?? null;
+        $product_photo = empty($_FILES["product_photo"]["name"]) ? null : $_FILES["product_photo"];
 
         if ($product_name && $product_category_id && $product_price && $product_description) {
+
             $result = Product::update($id, [
                 'product_name' => $product_name,
                 'product_category_id' => $product_category_id,

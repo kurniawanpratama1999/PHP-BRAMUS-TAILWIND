@@ -2,7 +2,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Bramus\Router\Router;
-use App\Controllers\{HomeController, DashboardController, ProductsController, UsersController};
+use App\Controllers\{HomeController, DashboardController, ProductsController, UsersController, UserLevelController};
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_method'])) {
     $_SERVER['REQUEST_METHOD'] = strtoupper($_POST['_method']);
@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_method'])) {
 $router = new Router();
 
 $router->get('/', [new HomeController(), "index"]);
+
 $router->get('/dashboard', [new DashboardController(), "dashboard"]);
 
 /* === USERS: START === */
@@ -40,6 +41,19 @@ $router->delete('/dashboard/user/{id}', function ($id) {
 });
 /* === USERS: END === */
 
+/* === ROLES: START === */
+$router->get('/dashboard/roles', [new UserLevelController(), "index"]);
+$router->get('/dashboard/roles/{id}/edit', function ($id) {
+    return (new UserLevelController())->index($id);
+});
+$router->post('/dashboard/roles', [new UserLevelController(), "create"]);
+$router->put('/dashboard/roles/{id}/edit', function ($id) {
+    return (new UserLevelController())->update($id);
+});
+$router->delete('/dashboard/roles/{id}', function ($id) {
+    return (new UserLevelController())->delete($id);
+});
+/* === ROLES: END === */
 
 /* === PRODUCTS: START === */
 // !1 HALAMAN: INDEX -> /dashboard/products
